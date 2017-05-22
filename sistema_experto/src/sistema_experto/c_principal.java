@@ -11,16 +11,11 @@ package sistema_experto;
  */
 public class c_principal {
 
-    private c_modActualizacion o_modActualizacion;
+    private c_menu o_Menu;
     
     public c_principal() {
-        o_modActualizacion = new c_modActualizacion();
-        //o_modActualizacion.m_IngresaBC();
-        //o_modActualizacion.m_LeeBC();
-        //o_modActualizacion.m_ModificaBC();
-        o_modActualizacion.m_LeeBC();
-        o_modActualizacion.m_EliminarBC();
-        o_modActualizacion.m_LeeBC();
+        o_Menu=new c_menu();
+        o_Menu.m_Menu();
     }
     
     public static void main(String[] args) {

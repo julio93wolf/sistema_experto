@@ -10,18 +10,19 @@ public class c_modActualizacion {
     private int a_noAntecedentes;
     private char a_Antecedentes[];
     private char a_Consecuente;
+    private char a_Hechos;
     
     // Captura por teclado
     private Scanner a_Entrada;
     
-    // Direcciones de la base de conocimiento
+    // Direccion de la base de conocimiento
     final private String a_baseConocimiento="src/files/bc.dat";
     final private String a_baseConoTemporal="src/files/bc_temp.dat";
     
-    /**
-     * 
-     */
-    public void m_IngresaBC(){
+    // Direccion de la base de hechos
+    final private String a_baseHechos="src/files/bh.dat";
+    
+    public void m_InsertarBC(){
         String v_Opcion="";
         RandomAccessFile v_baseConocimiento = null;
         try{
@@ -72,11 +73,8 @@ public class c_modActualizacion {
             }
         }
     }
-    
-    /**
-     * 
-     */
-    public void m_LeeBC(){
+   
+    public void m_MostrarBC(){
         RandomAccessFile v_baseConocimiento = null;
         long v_apActual=0,v_apFinal;
         try{
@@ -243,6 +241,77 @@ public class c_modActualizacion {
                 }
             }catch(Exception e){
                 System.out.println("Error al Leer: Error al leer el archivo: "+a_baseConocimiento);
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public void m_InsertarBH(){
+        String v_Opcion="";
+        RandomAccessFile v_baseHechos = null;
+        try{
+            v_baseHechos = new RandomAccessFile(a_baseHechos,"rw");
+        }catch(Exception e){
+            System.out.println("Error al Insertar: Error al abrir el archivo: "+a_baseHechos);
+            System.out.println(e.toString());
+        }
+        if(v_baseHechos!=null){
+            do{
+                try{
+                    v_Opcion="1";
+                    a_Entrada = new Scanner(System.in);
+                    System.out.print("Hecho: ");
+                    a_Hechos=a_Entrada.next().charAt(0);
+                    
+                    v_baseHechos.seek(v_baseHechos.length());
+                    v_baseHechos.writeChar(a_Hechos);
+                    
+                    System.out.println("\n¿Desea agregar otra hecho?");
+                    System.out.println("[Si]=1\n[No]=Cualquier tecla");
+                    System.out.print("Opcion: ");
+                    v_Opcion=a_Entrada.next();
+                }catch(Exception e){
+                    System.out.println("Error al Insertar: Valor no Valido");
+                    System.out.println(e.toString());
+                }
+            }while(v_Opcion.equals("1"));
+            try{
+                v_baseHechos.close();
+            }catch(Exception e){
+                System.out.println("Error al Insertar: El archivo no se a cerrado");
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public void m_MostrarBH(){
+        RandomAccessFile v_baseHechos = null;
+        long v_apActual=0,v_apFinal;
+        try{
+            v_baseHechos = new RandomAccessFile(a_baseHechos,"r");
+        }catch(Exception e){
+            System.out.println("Error al Leer: Error al abrir el archivo: "+a_baseHechos);
+            System.out.println(e.toString());
+        }
+        if(v_baseHechos!=null){
+            try{
+                v_apActual=v_baseHechos.getFilePointer();
+                v_apFinal=v_baseHechos.length();
+                System.out.println("");
+                while(v_apActual!=v_apFinal){
+                    a_Consecuente=v_baseHechos.readChar();
+                    System.out.println(a_Consecuente);
+                    v_apActual=v_baseHechos.getFilePointer();
+                    v_apFinal=v_baseHechos.length();
+                }
+            }catch(Exception e){
+                System.out.println("Error al Leer: Error al leer el archivo: "+a_baseHechos);
+                System.out.println(e.toString());
+            }
+            try{
+                v_baseHechos.close();
+            }catch(Exception e){
+                System.out.println("Error al Leer: El archivo no se a cerrado");
                 System.out.println(e.toString());
             }
         }
