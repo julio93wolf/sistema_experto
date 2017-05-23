@@ -125,18 +125,18 @@ public class c_modActualizacion {
     
     public void m_ModificaBC(){
         int v_Regla;
-        boolean v_Modifica = false;
+        boolean v_Modifica = false,v_banError=false;
         File v_arcBaseConocimiento = null;
         File v_arcBaseConoTemporal = null;
         RandomAccessFile v_baseConocimiento = null;
         RandomAccessFile v_baseConoTemporal = null;
         long v_apActual = 0,v_apFinal;
-        try{
+        try{                
             v_baseConocimiento = new RandomAccessFile(a_baseConocimiento,"r");
             v_baseConoTemporal = new RandomAccessFile(a_baseConoTemporal,"rw");
         }catch(Exception e){
-            System.out.println("Error al Leer: Error al abrir el archivo: "+a_baseConocimiento);
-            System.out.println("Error al Leer: Error al abrir el archivo: "+a_baseConoTemporal);
+            System.out.println("Error al Modificar: Error al abrir el archivo: "+a_baseConocimiento);
+            System.out.println("Error al Modificar: Error al abrir el archivo: "+a_baseConoTemporal);
             System.out.println(e.toString());
         }
         if(v_baseConocimiento != null&&v_baseConoTemporal != null){
@@ -176,20 +176,29 @@ public class c_modActualizacion {
                     v_apActual = v_baseConocimiento.getFilePointer();
                     v_apFinal = v_baseConocimiento.length();
                 }
-                v_baseConocimiento.close();
-                v_baseConoTemporal.close();
-                
-                v_arcBaseConocimiento = new File(a_baseConocimiento);
-                v_arcBaseConocimiento.delete();
-                v_arcBaseConoTemporal = new File(a_baseConoTemporal);
-                v_arcBaseConoTemporal.renameTo(new File(a_baseConocimiento));
-                v_arcBaseConoTemporal.delete();
-                
                 if(!v_Modifica){
                     System.out.println("\nNo se encontro la regla: "+v_Regla);
                 }
             }catch(Exception e){
-                System.out.println("Error al Leer: Error al leer el archivo: "+a_baseConocimiento);
+                System.out.println("Error al Modificar: Error al leer el archivo: "+a_baseConocimiento);
+                System.out.println(e.toString());
+                v_banError=true;
+            }
+            try{
+                v_baseConocimiento.close();
+                v_baseConoTemporal.close();
+                if(v_banError){
+                    v_arcBaseConoTemporal = new File(a_baseConoTemporal);
+                    v_arcBaseConoTemporal.delete();
+                }else{
+                    v_arcBaseConocimiento = new File(a_baseConocimiento);
+                    v_arcBaseConocimiento.delete();
+                    v_arcBaseConoTemporal = new File(a_baseConoTemporal);
+                    v_arcBaseConoTemporal.renameTo(new File(a_baseConocimiento));
+                    v_arcBaseConoTemporal.delete();
+                }
+            }catch(Exception e){
+                System.out.println("Error al Modificar: Error al abrir los archivos");
                 System.out.println(e.toString());
             }
         }
@@ -203,7 +212,7 @@ public class c_modActualizacion {
         try{
             v_baseConocimiento = new RandomAccessFile(a_baseConocimiento,"rw");
         }catch(Exception e){
-            System.out.println("Error al Leer: Error al abrir el archivo: "+a_baseConocimiento);
+            System.out.println("Error al Eliminar: Error al abrir el archivo: "+a_baseConocimiento);
             System.out.println(e.toString());
         }
         if(v_baseConocimiento != null){
@@ -240,7 +249,7 @@ public class c_modActualizacion {
                     System.out.println("\nNo se encontro la regla: "+v_Regla);
                 }
             }catch(Exception e){
-                System.out.println("Error al Leer: Error al leer el archivo: "+a_baseConocimiento);
+                System.out.println("Error al Eliminar: Error al leer el archivo: "+a_baseConocimiento);
                 System.out.println(e.toString());
             }
         }
