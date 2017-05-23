@@ -10,7 +10,8 @@ public class c_modActualizacion {
     private int a_noAntecedentes;
     private char a_Antecedentes[];
     private char a_Consecuente;
-    private char a_Hechos;
+    private char a_Hecho;
+    private char a_Meta;
     
     // Captura por teclado
     private Scanner a_Entrada;
@@ -21,6 +22,9 @@ public class c_modActualizacion {
     
     // Direccion de la base de hechos
     final private String a_baseHechos="src/files/bh.dat";
+    
+    // Direccion de las metas
+    final private String a_Metas="src/files/metas.dat";
     
     public void m_InsertarBC(){
         String v_Opcion="";
@@ -270,10 +274,10 @@ public class c_modActualizacion {
                     v_Opcion="1";
                     a_Entrada = new Scanner(System.in);
                     System.out.print("Hecho: ");
-                    a_Hechos=a_Entrada.next().charAt(0);
+                    a_Hecho=a_Entrada.next().charAt(0);
                     
                     v_baseHechos.seek(v_baseHechos.length());
-                    v_baseHechos.writeChar(a_Hechos);
+                    v_baseHechos.writeChar(a_Hecho);
                     
                     System.out.println("\n¿Desea agregar otra hecho?");
                     System.out.println("[Si]=1\n[No]=Cualquier tecla");
@@ -308,8 +312,8 @@ public class c_modActualizacion {
                 v_apFinal=v_baseHechos.length();
                 System.out.println("");
                 while(v_apActual!=v_apFinal){
-                    a_Consecuente=v_baseHechos.readChar();
-                    System.out.println(a_Consecuente);
+                    a_Hecho=v_baseHechos.readChar();
+                    System.out.println(a_Hecho);
                     v_apActual=v_baseHechos.getFilePointer();
                     v_apFinal=v_baseHechos.length();
                 }
@@ -323,6 +327,105 @@ public class c_modActualizacion {
                 System.out.println("Error al Leer: El archivo no se a cerrado");
                 System.out.println(e.toString());
             }
+        }
+    }
+    
+    public void m_VaciarBH(){   
+        File v_arcBaseHechos = null;
+        RandomAccessFile v_baseHechos = null;
+        try{
+            v_arcBaseHechos = new File(a_baseHechos);
+            v_arcBaseHechos.delete();
+            v_baseHechos = new RandomAccessFile(a_baseHechos,"rw");
+            v_baseHechos.close();
+        }catch(Exception e){
+            System.out.println("Error al Leer: Error al abrir el archivo: "+a_baseHechos);
+            System.out.println(e.toString());
+        }
+    }
+    
+    public void m_InsertarM(){
+        String v_Opcion="";
+        RandomAccessFile v_Metas = null;
+        try{
+            v_Metas = new RandomAccessFile(a_Metas,"rw");
+        }catch(Exception e){
+            System.out.println("Error al Insertar: Error al abrir el archivo: "+a_Metas);
+            System.out.println(e.toString());
+        }
+        if(v_Metas!=null){
+            do{
+                try{
+                    v_Opcion="1";
+                    a_Entrada = new Scanner(System.in);
+                    System.out.print("Meta: ");
+                    a_Hecho=a_Entrada.next().charAt(0);
+                    
+                    v_Metas.seek(v_Metas.length());
+                    v_Metas.writeChar(a_Hecho);
+                    
+                    System.out.println("\n¿Desea agregar otra meta?");
+                    System.out.println("[Si]=1\n[No]=Cualquier tecla");
+                    System.out.print("Opcion: ");
+                    v_Opcion=a_Entrada.next();
+                }catch(Exception e){
+                    System.out.println("Error al Insertar: Valor no Valido");
+                    System.out.println(e.toString());
+                }
+            }while(v_Opcion.equals("1"));
+            try{
+                v_Metas.close();
+            }catch(Exception e){
+                System.out.println("Error al Insertar: El archivo no se a cerrado");
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public void m_MostrarM(){
+        RandomAccessFile v_Metas = null;
+        long v_apActual=0,v_apFinal;
+        try{
+            v_Metas = new RandomAccessFile(a_Metas,"r");
+        }catch(Exception e){
+            System.out.println("Error al Leer: Error al abrir el archivo: "+a_Metas);
+            System.out.println(e.toString());
+        }
+        if(v_Metas!=null){
+            try{
+                v_apActual=v_Metas.getFilePointer();
+                v_apFinal=v_Metas.length();
+                System.out.println("");
+                while(v_apActual!=v_apFinal){
+                    a_Meta=v_Metas.readChar();
+                    System.out.println(a_Meta);
+                    v_apActual=v_Metas.getFilePointer();
+                    v_apFinal=v_Metas.length();
+                }
+            }catch(Exception e){
+                System.out.println("Error al Leer: Error al leer el archivo: "+a_Metas);
+                System.out.println(e.toString());
+            }
+            try{
+                v_Metas.close();
+            }catch(Exception e){
+                System.out.println("Error al Leer: El archivo no se a cerrado");
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
+    public void m_VaciarM(){   
+        File v_arcMetas = null;
+        RandomAccessFile v_Metas = null;
+        try{
+            v_arcMetas = new File(a_Metas);
+            v_arcMetas.delete();
+            v_Metas = new RandomAccessFile(a_Metas,"rw");
+            v_Metas.close();
+        }catch(Exception e){
+            System.out.println("Error al Leer: Error al abrir el archivo: "+a_Metas);
+            System.out.println(e.toString());
         }
     }
 }

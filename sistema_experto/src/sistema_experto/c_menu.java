@@ -46,7 +46,7 @@ public class c_menu {
                 break;
             }
             case 3:{
-                
+                m_MenuM();
                 break;
             }
             case 4:{
@@ -78,27 +78,6 @@ public class c_menu {
         }while(v_Opcion<=0 && v_Opcion>=5);
     }
     
-    public void m_MenuBH(){
-        Scanner v_Entrada;
-        int v_Opcion = 0;
-        do{
-            try{
-                v_Entrada = new Scanner(System.in);
-                System.out.println("\n[1] Agregar Hecho\t[BH]");
-                System.out.println("[2] Mostrar Hecho\t[BH]");
-                System.out.println("[3] Eliminar Hecho\t[BH]");
-                System.out.print("Opción: ");
-                v_Opcion = v_Entrada.nextInt();
-                if(v_Opcion>0 && v_Opcion<10)
-                    m_opcBaseHechos(v_Opcion);
-                else
-                    System.out.println("Error: Valor fuera de rango");
-            }catch(Exception e){
-                System.out.println("Error: Valor invalido");
-            }
-        }while(v_Opcion != 9);
-    }
-    
     public void m_opcBaseConocimiento(int p_Opcion){
         switch(p_Opcion){
             case 1:{
@@ -119,5 +98,80 @@ public class c_menu {
             }
         }
     }
-    public void m_opcBaseHechos(int p_Opcion){}
+    
+    public void m_MenuBH(){
+        Scanner v_Entrada;
+        int v_Opcion = 0;
+        do{
+            try{
+                v_Entrada = new Scanner(System.in);
+                System.out.println("\n[1] Agregar Hecho\t[BH]");
+                System.out.println("[2] Mostrar Hecho\t[BH]");
+                System.out.println("[3] Vaciar Hechos\t[BH]");
+                System.out.print("Opción: ");
+                v_Opcion = v_Entrada.nextInt();
+                if(v_Opcion>0 && v_Opcion<4)
+                    m_opcBaseHechos(v_Opcion);
+                else
+                    System.out.println("Error: Valor fuera de rango");
+            }catch(Exception e){
+                System.out.println("Error: Valor invalido");
+            }
+        }while(v_Opcion<=0 && v_Opcion>=4);
+    }
+
+    public void m_opcBaseHechos(int p_Opcion){
+        switch(p_Opcion){
+            case 1:{
+                o_modActualizacion.m_InsertarBH();
+                break;
+            }
+            case 2:{
+                o_modActualizacion.m_MostrarBH();
+                break;
+            }
+            case 3:{
+                o_modActualizacion.m_VaciarBH();
+                break;
+            }
+        }
+    }
+    
+    public void m_MenuM(){
+        Scanner v_Entrada;
+        int v_Opcion = 0;
+        do{
+            try{
+                v_Entrada = new Scanner(System.in);
+                System.out.println("\n[1] Agregar Meta\t[BH]");
+                System.out.println("[2] Mostrar Metas\t[BH]");
+                System.out.println("[3] Vaciar Metas\t[BH]");
+                System.out.print("Opción: ");
+                v_Opcion = v_Entrada.nextInt();
+                if(v_Opcion>0 && v_Opcion<4)
+                    m_opcMetas(v_Opcion);
+                else
+                    System.out.println("Error: Valor fuera de rango");
+            }catch(Exception e){
+                System.out.println("Error: Valor invalido");
+            }
+        }while(v_Opcion<=0 && v_Opcion>=4);
+    }
+
+    public void m_opcMetas(int p_Opcion){
+        switch(p_Opcion){
+            case 1:{
+                o_modActualizacion.m_InsertarM();
+                break;
+            }
+            case 2:{
+                o_modActualizacion.m_MostrarM();
+                break;
+            }
+            case 3:{
+                o_modActualizacion.m_VaciarM();
+                break;
+            }
+        }
+    }
 }
