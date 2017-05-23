@@ -15,7 +15,7 @@ public class c_principal {
     
     public c_principal() {
         o_Menu=new c_menu();
-        o_Menu.m_Menu();
+        o_Menu.m_MenuPrincipal();
     }
     
     public static void main(String[] args) {
