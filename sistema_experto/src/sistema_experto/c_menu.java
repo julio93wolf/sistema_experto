@@ -5,9 +5,11 @@ import java.util.Scanner;
 public class c_menu {
     
     private c_modActualizacion o_modActualizacion;
+    private c_motInferencia o_motInferencia;
     
     c_menu(){
         o_modActualizacion = new c_modActualizacion();
+        o_motInferencia = new c_motInferencia();
     }
     
     public void m_MenuPrincipal(){
@@ -50,7 +52,7 @@ public class c_menu {
                 break;
             }
             case 4:{
-                
+                o_motInferencia.m_encAdelante();
                 break;
             }
         }

@@ -11,6 +11,7 @@ public class c_modActualizacion {
     private char a_Antecedentes[];
     private char a_Consecuente;
     private char a_Hecho;
+    private int a_Valor;
     private char a_Meta;
     
     // Captura por teclado
@@ -275,9 +276,12 @@ public class c_modActualizacion {
                     a_Entrada = new Scanner(System.in);
                     System.out.print("Hecho: ");
                     a_Hecho=a_Entrada.next().charAt(0);
+                    System.out.print("Valor: ");
+                    a_Valor=a_Entrada.nextInt();
                     
                     v_baseHechos.seek(v_baseHechos.length());
                     v_baseHechos.writeChar(a_Hecho);
+                    v_baseHechos.writeInt(a_Valor);
                     
                     System.out.println("\n¿Desea agregar otra hecho?");
                     System.out.println("[Si]=1\n[No]=Cualquier tecla");
@@ -313,7 +317,8 @@ public class c_modActualizacion {
                 System.out.println("");
                 while(v_apActual!=v_apFinal){
                     a_Hecho=v_baseHechos.readChar();
-                    System.out.println(a_Hecho);
+                    a_Valor=v_baseHechos.readInt();
+                    System.out.println(a_Hecho+":"+a_Valor);
                     v_apActual=v_baseHechos.getFilePointer();
                     v_apFinal=v_baseHechos.length();
                 }
