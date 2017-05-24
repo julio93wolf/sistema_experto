@@ -2,7 +2,6 @@ package sistema_experto;
 
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class c_motInferencia {
     
@@ -77,7 +76,6 @@ public class c_motInferencia {
             try{
                 v_apActual=v_baseHechos.getFilePointer();
                 v_apFinal=v_baseHechos.length();
-                System.out.println("");
                 while(v_apActual!=v_apFinal){
                     a_Hecho=v_baseHechos.readChar();
                     a_Valor=v_baseHechos.readInt();
@@ -115,7 +113,6 @@ public class c_motInferencia {
             try{
                 v_apActual=v_baseConocimiento.getFilePointer();
                 v_apFinal=v_baseConocimiento.length();
-                System.out.println("");
                 while(v_apActual!=v_apFinal){
                     a_Llave=v_baseConocimiento.readInt();
                     a_noAntecedentes=v_baseConocimiento.readInt();
