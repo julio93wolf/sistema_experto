@@ -9,16 +9,16 @@ import java.util.Scanner;
 
 public class c_menu {
     
-    private c_modActualizacion o_modActualizacion;      // Objeto de la clase del módulo de actualización
-    private c_motInferencia o_motInferencia;            // Objeto de la clase del motor de inferencia
+    private c_moduloActualizacion o_modActualizacion;      // Objeto de la clase del módulo de actualización
+    private c_motorInferencia o_motInferencia;            // Objeto de la clase del motor de inferencia
     
     /**
      * @name: c_menu
      * @description: Constructor de la clase c_menu
      */
     c_menu(){
-        o_modActualizacion = new c_modActualizacion();  // Implementación del módulo de actualización
-        o_motInferencia = new c_motInferencia();        // Implementacion del módulo de inferencia
+        o_modActualizacion = new c_moduloActualizacion();  // Implementación del módulo de actualización
+        o_motInferencia = new c_motorInferencia();        // Implementacion del módulo de inferencia
         m_menuPrincipal();                              // Ejecución del menú de opciones
     }// Fin del constructor de la clase c_menu
     
@@ -62,14 +62,11 @@ public class c_menu {
                 break;
             }
             case 2:{
-                break;
-            }
-            case 3:{
                 m_menuMetas();
                 break;
             }
-            case 4:{
-                o_motInferencia.m_encAdelante();
+            case 3:{
+                o_motInferencia.m_encadenamientoAdelante();
                 break;
             }
         }

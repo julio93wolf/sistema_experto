@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
 
-public class c_modActualizacion {
+public class c_moduloActualizacion {
     
     // Datos de la base de conocimiento
     private int a_noRegla;                      // Número de regla
@@ -98,6 +98,7 @@ public class c_modActualizacion {
         }
         if(v_baseConocimiento!=null){
             try{
+                System.out.println("");
                 v_apActual=v_baseConocimiento.getFilePointer();
                 v_apFinal=v_baseConocimiento.length();
                 while(v_apActual!=v_apFinal){

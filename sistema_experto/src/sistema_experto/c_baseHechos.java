@@ -114,7 +114,7 @@ public class c_baseHechos {
             try{
                 v_baseHechos.close();
             }catch(Exception e){
-                System.out.println("Error al Insertar: El archivo no se a cerrado");
+                System.out.println("m_ingresaBaseHechos: El archivo no se a cerrado");
                 System.out.println(e.toString());
             }
         }
