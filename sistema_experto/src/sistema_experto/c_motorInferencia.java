@@ -2,6 +2,9 @@
  * @name: c_modActualizacion.java
  * @description: Módulo para la actualización de la base de conocimiento
  * @version 17.5.25
+ * @author: 
+ * @author: 
+ * @author: Sanchez Martínez Humberto
  * @author: Valle Rodríguez Julio Cesar
  */
 package sistema_experto;

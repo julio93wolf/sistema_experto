@@ -2,6 +2,9 @@
  * @name: c_baseHechos.java
  * @description: Clase para controlar la base de hechos
  * @version 17.5.25
+ * @author: 
+ * @author: 
+ * @author: Sanchez Martínez Humberto
  * @author: Valle Rodríguez Julio Cesar
  */
 
