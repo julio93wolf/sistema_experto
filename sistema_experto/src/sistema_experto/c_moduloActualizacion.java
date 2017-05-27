@@ -31,7 +31,7 @@ public class c_moduloActualizacion {
     
     // Direccion de las metas
     final private String a_arcMetas="src/files/metas.dat";
-    
+    String reglas="";
     /**
      * @name: m_insertarBaseConocimiento
      * @description: Método para insertar reglas en la base de conocimiento
@@ -90,18 +90,18 @@ public class c_moduloActualizacion {
      * @name: m_mostrarBaseConocimiento
      * @description: Método para mostar por pantalla las reglas en la base de conocimiento
      */
-    public void m_mostrarBaseConocimiento(){
+    public String m_mostrarBaseConocimiento(){
         RandomAccessFile v_baseConocimiento = null;
         long v_apActual=0,v_apFinal;
         try{
             v_baseConocimiento = new RandomAccessFile(a_arcBaseConocimiento,"r");
         }catch(Exception e){
-            System.out.println("m_mostrarBaseConocimiento: Error al abrir el archivo: "+a_arcBaseConocimiento);
-            System.out.println(e.toString());
+            reglas=("m_mostrarBaseConocimiento: Error al abrir el archivo: "+a_arcBaseConocimiento);
+            reglas+=(e.toString());
         }
         if(v_baseConocimiento!=null){
             try{
-                System.out.println("");
+                reglas+=("");
                 v_apActual=v_baseConocimiento.getFilePointer();
                 v_apFinal=v_baseConocimiento.length();
                 while(v_apActual!=v_apFinal){
@@ -113,15 +113,16 @@ public class c_moduloActualizacion {
                     }
                     a_Consecuente=v_baseConocimiento.readChar();
                     if(a_noRegla>0){
-                        System.out.print("R"+a_noRegla+": ");
+                        reglas+=("R"+a_noRegla+": ");
                         for (int i = 0; i < a_noAntecedentes; i++) {
-                            System.out.print(a_Antecedentes[i]);
+                            reglas+=(a_Antecedentes[i]);
                             if((i+1)<a_noAntecedentes){
-                                System.out.print("^");
+                                reglas+=("^");
                             }
                         }
-                        System.out.print("->");
-                        System.out.println(a_Consecuente);
+                        reglas+=("->");
+                        reglas+=(a_Consecuente);
+                        reglas+=("\n");
                     }
                     v_apActual=v_baseConocimiento.getFilePointer();
                     v_apFinal=v_baseConocimiento.length();
@@ -137,6 +138,7 @@ public class c_moduloActualizacion {
                 System.out.println(e.toString());
             }
         }
+        return reglas;
     }// Fin del método m_mostrarBaseConocimiento
 
     /**
