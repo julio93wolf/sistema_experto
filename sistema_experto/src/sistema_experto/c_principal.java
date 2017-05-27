@@ -22,6 +22,6 @@ public class c_principal {
     }
     
     public static void main(String[] args) {
-        c_principal o_principal=new c_principal();
+       c_principal o_principal=new c_principal();
     }
 }
