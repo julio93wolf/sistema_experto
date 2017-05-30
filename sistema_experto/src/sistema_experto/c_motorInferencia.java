@@ -11,6 +11,7 @@ package sistema_experto;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class c_motorInferencia {
     
@@ -26,6 +27,7 @@ public class c_motorInferencia {
     private boolean a_banderaNuevoHecho=false;          // Badera de nuevo hecho
     private char a_NuevoHecho;                          // Nuevo hecho
     
+    private ArrayList a_Estrategia;
 
     // Captura por teclado
     private Scanner a_Entrada;
@@ -50,6 +52,7 @@ public class c_motorInferencia {
      * @description: Método de encadenamiento adelante
      */
     public void m_encadenamientoAdelante(){
+        a_Estrategia = new ArrayList();
         int v_contador=0;
         boolean v_BanderaCC=true;
         o_baseHechos.m_ingresaBaseHechos();                                     // Ingresa los hechos iniciales
@@ -71,6 +74,9 @@ public class c_motorInferencia {
                             m_aplicarRegla();
                             if(a_banderaNuevoHecho){
                                 m_actualizaBaseHechos(m_Consulta(a_NuevoHecho));
+                                String a_Ciclo [];
+                                a_Ciclo = m_Ciclo();
+                                a_Estrategia.add(a_Ciclo);
                                 a_baseHechos = o_baseHechos.m_cargaBaseHechos();    // Carga la base de hechos
                                 v_BanderaCC = false;
                             }
@@ -229,10 +235,7 @@ public class c_motorInferencia {
         try{
             v_Opcion="1";
             a_Entrada = new Scanner(System.in);
-            System.out.println("\nTiene : "+p_Hecho);
-            System.out.println("[Si]=1\n[No]=Cualquier tecla");
-            System.out.print("Opción: ");
-            v_Opcion=a_Entrada.next();
+            v_Opcion=JOptionPane.showInputDialog("\nTiene : "+p_Hecho+"\n[Si]=1\n[No]=Cualquier tecla\nOpción: ");
             if(v_Opcion.equals("1")){
                 v_Bandera=true;
             }else{
@@ -285,6 +288,37 @@ public class c_motorInferencia {
                 a_baseConocimiento.set(i,v_Regla);
             }
         }
+    }
+    
+    private String[] m_Ciclo(){
+        ArrayList v_Hecho;
+        ArrayList v_Regla;
+        int v_Resolucion;
+        String v_Ciclo[] = new String[3];
+        v_Ciclo[0]="{";
+        for (int i = 0; i < a_baseHechos.size(); i++) {
+            v_Hecho=(ArrayList)a_baseHechos.get(i);
+            v_Ciclo[0]+=v_Hecho.get(0);
+            if(i+1<a_baseHechos.size()){
+                v_Ciclo[0]+=",";
+            }
+        }
+        v_Ciclo[0]+="}";      
+        v_Ciclo[1]="{";
+        for (int i = 0; i < a_conjuntoConflicto.size(); i++) {
+            v_Regla=(ArrayList)a_conjuntoConflicto.get(i);
+            v_Ciclo[1]+=v_Regla.get(0);
+            if(i+1<a_conjuntoConflicto.size()){
+                v_Ciclo[1]+=",";
+            }
+        }
+        v_Ciclo[1]+="}";
+        v_Ciclo[2]= ""+(int)a_Resolver.get(0);
+        return v_Ciclo;
+    }
+    
+    public ArrayList m_getEstrategia(){
+        return a_Estrategia;
     }
 }
 

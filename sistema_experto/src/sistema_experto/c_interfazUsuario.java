@@ -1,12 +1,18 @@
 package sistema_experto;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 public class c_interfazUsuario extends javax.swing.JFrame {
-    private c_moduloActualizacion o_ma=new c_moduloActualizacion();
+    private c_moduloActualizacion o_modActualizacion;
+    private c_motorInferencia o_motInferencia;
+    private ArrayList a_Estrategia;
     private String mostrarReglas;
     
     public c_interfazUsuario() {
-        mostrarReglas=o_ma.m_mostrarBaseConocimiento();
+        o_modActualizacion = new c_moduloActualizacion();
+        o_motInferencia = new c_motorInferencia();
+        mostrarReglas=o_modActualizacion.m_mostrarBaseConocimiento();
         setIconImage(new ImageIcon(getClass().getResource("../imagenes/img_icono.png")).getImage());// Nos permite modificar el icono de la ventana.
         initComponents();        
         setVisible(true);
@@ -33,10 +39,10 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        a_tblEstrategia = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
-        jButton4 = new javax.swing.JButton();
+        a_btnSintoma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Experto para la detección de trastornos de ansiedad");
@@ -60,6 +66,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jTextArea1.setRows(5);
         jTextArea1.setText(mostrarReglas);
         jScrollPane1.setViewportView(jTextArea1);
@@ -70,7 +77,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Proceso");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        a_tblEstrategia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -81,14 +88,19 @@ public class c_interfazUsuario extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(a_tblEstrategia);
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
-        jButton4.setText("Agregar Síntoma");
+        a_btnSintoma.setText("Agregar Síntoma");
+        a_btnSintoma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_btnSintomaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnl_InterfazLayout = new javax.swing.GroupLayout(pnl_Interfaz);
         pnl_Interfaz.setLayout(pnl_InterfazLayout);
@@ -114,9 +126,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
                             .addGroup(pnl_InterfazLayout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_InterfazLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(a_btnSintoma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2)
                     .addGroup(pnl_InterfazLayout.createSequentialGroup()
                         .addGroup(pnl_InterfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +149,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_InterfazLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(32, 32, 32)))
-                .addGroup(pnl_InterfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnl_InterfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -151,7 +161,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton3)
                     .addComponent(jButton2)
-                    .addComponent(jButton4))
+                    .addComponent(a_btnSintoma))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,11 +183,34 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void m_llenaTabla(){
+        a_Estrategia = o_motInferencia.m_getEstrategia();
+        String[] v_tblModel=new String[]{"Ciclo","BH","Conjunto Conflicto","Resolucion"};
+        DefaultTableModel v_Modelo=new DefaultTableModel(null,v_tblModel);
+        a_tblEstrategia.setModel(v_Modelo);
+        String[] v_Datos={"","","",""};
+        String v_Ciclo[] = new String[3];
+        for (int i = 0; i < a_Estrategia.size(); i++) {
+            v_Ciclo=(String[])a_Estrategia.get(i);
+            v_Datos[0]=""+(i+1);
+            v_Datos[1]=v_Ciclo[0];
+            v_Datos[2]=v_Ciclo[1];
+            v_Datos[3]=v_Ciclo[2];
+            v_Modelo.addRow(v_Datos);
+        }
+    }
+    
+    private void a_btnSintomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_btnSintomaActionPerformed
+        o_motInferencia.m_encadenamientoAdelante();
+        m_llenaTabla();
+    }//GEN-LAST:event_a_btnSintomaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton a_btnSintoma;
+    private javax.swing.JTable a_tblEstrategia;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -186,7 +219,6 @@ public class c_interfazUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel pnl_Interfaz;

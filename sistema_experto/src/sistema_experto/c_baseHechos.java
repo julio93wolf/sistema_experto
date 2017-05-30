@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class c_baseHechos {
     
@@ -97,18 +98,14 @@ public class c_baseHechos {
                 try{
                     v_Opcion="1";
                     a_Entrada = new Scanner(System.in);
-                    System.out.print("\nHecho: ");
-                    a_carHecho=a_Entrada.next().charAt(0);
+                    a_carHecho=JOptionPane.showInputDialog("Sintoma: ").charAt(0);
                     a_valHecho=1;
                     
                     v_baseHechos.seek(v_baseHechos.length());
                     v_baseHechos.writeChar(a_carHecho);
                     v_baseHechos.writeInt(a_valHecho);
                     
-                    System.out.println("\n¿Desea agregar otra hecho?");
-                    System.out.println("[Si]=1\n[No]=Cualquier tecla");
-                    System.out.print("Opción: ");
-                    v_Opcion=a_Entrada.next();
+                    v_Opcion=JOptionPane.showInputDialog("\n¿Desea agregar otra hecho?\n[Si]=1\n[No]=Cualquier tecla\nOpción: ");
                 }catch(Exception e){
                     System.out.println("m_ingresaBaseHechos: Valor no Valido");
                     System.out.println(e.toString());
