@@ -11,6 +11,7 @@ package sistema_experto;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class c_moduloActualizacion {
     
@@ -23,7 +24,7 @@ public class c_moduloActualizacion {
     private char a_Meta;                        // Carácter que representa una meta
     
     // Captura por teclado
-    private Scanner a_Entrada;
+    //private Scanner a_Entrada;
     
     // Direccion de la base de conocimiento
     final private String a_arcBaseConocimiento="src/files/bc.dat";
@@ -49,18 +50,13 @@ public class c_moduloActualizacion {
             do{
                 try{
                     v_Opcion="1";
-                    a_Entrada = new Scanner(System.in);
-                    System.out.print("\nNo. Regla: ");
-                    a_noRegla=a_Entrada.nextInt();
-                    System.out.print("¿Numero de Antecedentes?: ");
-                    a_noAntecedentes=a_Entrada.nextInt();
+                    a_noRegla=Integer.parseInt(JOptionPane.showInputDialog("No. Regla: "));
+                    a_noAntecedentes=Integer.parseInt(JOptionPane.showInputDialog("¿Numero de Antecedentes?: "));
                     a_Antecedentes=new char[a_noAntecedentes];
                     for (int i = 0; i < a_noAntecedentes; i++) {
-                        System.out.print("Antecedente ["+(i+1)+"]: ");
-                        a_Antecedentes[i]=a_Entrada.next().charAt(0);
+                        a_Antecedentes[i]=JOptionPane.showInputDialog("Antecedente ["+(i+1)+"]: ").charAt(0);
                     }
-                    System.out.print("Consecuente: ");
-                    a_Consecuente=a_Entrada.next().charAt(0);
+                    a_Consecuente=JOptionPane.showInputDialog("Consecuente: ").charAt(0);
                     v_baseConocimiento.seek(v_baseConocimiento.length());
                     v_baseConocimiento.writeInt(a_noRegla);
                     v_baseConocimiento.writeInt(a_noAntecedentes);
@@ -68,10 +64,7 @@ public class c_moduloActualizacion {
                         v_baseConocimiento.writeChar(a_Antecedentes[i]);
                     }
                     v_baseConocimiento.writeChar(a_Consecuente);
-                    System.out.println("\n¿Desea agregar otra regla?");
-                    System.out.println("[Si]=1\n[No]=Cualquier tecla");
-                    System.out.print("Opcion: ");
-                    v_Opcion=a_Entrada.next();
+                    v_Opcion=JOptionPane.showInputDialog("¿Desea agregar otra regla?\n[Si]=1\n[No]=Cualquier tecla\nOpcion: ");
                 }catch(Exception e){
                     System.out.println("m_insertarBaseConocimiento: Valor no Valido");
                     System.out.println(e.toString());
@@ -91,6 +84,7 @@ public class c_moduloActualizacion {
      * @description: Método para mostar por pantalla las reglas en la base de conocimiento
      */
     public String m_mostrarBaseConocimiento(){
+        reglas="";
         RandomAccessFile v_baseConocimiento = null;
         long v_apActual=0,v_apFinal;
         try{
@@ -163,9 +157,7 @@ public class c_moduloActualizacion {
         }
         if(v_baseConocimiento != null&&v_baseConoTemporal != null){
             try{
-                a_Entrada=new Scanner(System.in);
-                System.out.print("\n¿Regla a modificar?: ");
-                v_Regla = a_Entrada.nextInt();
+                v_Regla = Integer.parseInt(JOptionPane.showInputDialog("¿Regla a modificar?: "));
                 v_apActual = v_baseConocimiento.getFilePointer();
                 v_apFinal = v_baseConocimiento.length();
                 while(v_apActual != v_apFinal){
@@ -178,15 +170,12 @@ public class c_moduloActualizacion {
                     a_Consecuente = v_baseConocimiento.readChar();
                     if(v_Regla == a_noRegla){
                         v_Modifica = true;
-                        System.out.print("¿Numero de Antecedentes?: ");
-                        a_noAntecedentes = a_Entrada.nextInt();
+                        a_noAntecedentes = Integer.parseInt(JOptionPane.showInputDialog("¿Numero de Antecedentes?: "));
                         a_Antecedentes = new char[a_noAntecedentes];
                         for (int i = 0; i < a_noAntecedentes; i++) {
-                            System.out.print("Antecedente ["+(i+1)+"]: ");
-                            a_Antecedentes[i] = a_Entrada.next().charAt(0);
+                            a_Antecedentes[i] = JOptionPane.showInputDialog("Antecedente ["+(i+1)+"]: ").charAt(0);
                         }
-                        System.out.print("Consecuente: ");
-                        a_Consecuente = a_Entrada.next().charAt(0);    
+                        a_Consecuente = JOptionPane.showInputDialog("Consecuente: ").charAt(0);    
                     }
                     v_baseConoTemporal.seek(v_baseConoTemporal.length());
                     v_baseConoTemporal.writeInt(a_noRegla);
@@ -199,7 +188,7 @@ public class c_moduloActualizacion {
                     v_apFinal = v_baseConocimiento.length();
                 }
                 if(!v_Modifica){
-                    System.out.println("\nNo se encontro la regla: "+v_Regla);
+                    JOptionPane.showMessageDialog(null,"Regla no encontrada","Error",JOptionPane.ERROR_MESSAGE);
                 }
             }catch(Exception e){
                 System.out.println("m_modificaBaseConocimiento: Error al leer el archivo: "+a_arcBaseConocimiento);
@@ -245,9 +234,7 @@ public class c_moduloActualizacion {
         }
         if(v_baseConocimiento != null){
             try{
-                a_Entrada=new Scanner(System.in);
-                System.out.print("\n¿Regla a eliminar?: ");
-                v_Regla = a_Entrada.nextInt();
+                v_Regla = Integer.parseInt(JOptionPane.showInputDialog("\n¿Regla a eliminar?: "));
                 v_apActual = v_baseConocimiento.getFilePointer();
                 v_apFinal = v_baseConocimiento.length();
                 while(v_apActual != v_apFinal){
@@ -268,13 +255,14 @@ public class c_moduloActualizacion {
                             a_Antecedentes[i] = v_baseConocimiento.readChar();
                         }
                         a_Consecuente = v_baseConocimiento.readChar();
+                        JOptionPane.showMessageDialog(null,"Regla Eliminada","Regla Eliminada",JOptionPane.INFORMATION_MESSAGE);
                     }
                     v_apActual = v_baseConocimiento.getFilePointer();
                     v_apFinal = v_baseConocimiento.length();
                 }
                 v_baseConocimiento.close();
                 if(!v_Elimina){
-                    System.out.println("\nNo se encontro la regla: "+v_Regla);
+                    JOptionPane.showMessageDialog(null,"Regla no encontrada","Error",JOptionPane.ERROR_MESSAGE);
                 }
             }catch(Exception e){
                 System.out.println("m_eliminarBaseConocimiento: Error al leer el archivo: "+a_arcBaseConocimiento);
@@ -288,100 +276,4 @@ public class c_moduloActualizacion {
             }
         }
     }// Fin del método m_eliminarBaseConocimiento
-    
-    /**
-     * @name: m_insertarMeta
-     * @description: Método para insertar meta en el archivo de metas
-     */
-    public void m_insertarMeta(){
-        String v_Opcion="";
-        RandomAccessFile v_Metas = null;
-        try{
-            v_Metas = new RandomAccessFile(a_arcMetas,"rw");
-        }catch(Exception e){
-            System.out.println("m_insertarMeta: Error al abrir el archivo: "+a_arcMetas);
-            System.out.println(e.toString());
-        }
-        if(v_Metas!=null){
-            do{
-                try{
-                    v_Opcion="1";
-                    a_Entrada = new Scanner(System.in);
-                    System.out.print("\nMeta: ");
-                    a_Meta=a_Entrada.next().charAt(0);
-                    v_Metas.seek(v_Metas.length());
-                    v_Metas.writeChar(a_Meta);
-                    System.out.println("\n¿Desea agregar otra meta?");
-                    System.out.println("[Si]=1\n[No]=Cualquier tecla");
-                    System.out.print("Opcion: ");
-                    v_Opcion=a_Entrada.next();
-                }catch(Exception e){
-                    System.out.println("m_insertarMeta: Valor no Valido");
-                    System.out.println(e.toString());
-                }
-            }while(v_Opcion.equals("1"));
-            try{
-                v_Metas.close();
-            }catch(Exception e){
-                System.out.println("m_insertarMeta: El archivo no se ha cerrado: "+a_arcMetas);
-                System.out.println(e.toString());
-            }
-        }
-    }// Fin del método m_insertarMeta
-    
-    /**
-     * @name: m_mostrarMetas
-     * @description: Método para mostrar las metas en el archivo de metas
-     */
-    public void m_mostrarMetas(){
-        RandomAccessFile v_Metas = null;
-        long v_apActual=0,v_apFinal;
-        try{
-            v_Metas = new RandomAccessFile(a_arcMetas,"r");
-        }catch(Exception e){
-            System.out.println("m_mostrarMetas: Error al abrir el archivo: "+a_arcMetas);
-            System.out.println(e.toString());
-        }
-        if(v_Metas!=null){
-            try{
-                v_apActual=v_Metas.getFilePointer();
-                v_apFinal=v_Metas.length();
-                System.out.println("");
-                while(v_apActual!=v_apFinal){
-                    a_Meta=v_Metas.readChar();
-                    System.out.println(a_Meta);
-                    v_apActual=v_Metas.getFilePointer();
-                    v_apFinal=v_Metas.length();
-                }
-            }catch(Exception e){
-                System.out.println("m_mostrarMetas: Error al leer el archivo: "+a_arcMetas);
-                System.out.println(e.toString());
-            }
-            try{
-                v_Metas.close();
-            }catch(Exception e){
-                System.out.println("m_mostrarMetas: El archivo no se ha cerrado: "+a_arcMetas);
-                System.out.println(e.toString());
-            }
-        }
-    }// Fin del método m_mostrarMetas
-    
-    /**
-     * @name: m_vaciarMetas
-     * @description: Método para eliminar todas las metas en el archivo de metas
-     */
-    public void m_vaciarMetas(){   
-        File v_arcMetas = null;
-        RandomAccessFile v_Metas = null;
-        try{
-            v_arcMetas = new File(a_arcMetas);
-            v_arcMetas.delete();
-            v_Metas = new RandomAccessFile(a_arcMetas,"rw");
-            v_Metas.close();
-        }catch(Exception e){
-            System.out.println("m_vaciarMetas: Error al eliminar el archivo: "+a_arcMetas);
-            System.out.println("m_vaciarMetas: Error al crear el archivo: "+a_arcMetas);
-            System.out.println(e.toString());
-        }
-    }// Fin del método m_vaciarMetas
 }

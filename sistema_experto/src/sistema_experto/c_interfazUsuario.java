@@ -10,11 +10,13 @@ public class c_interfazUsuario extends javax.swing.JFrame {
     private String mostrarReglas;
     
     public c_interfazUsuario() {
+        initComponents();        
         o_modActualizacion = new c_moduloActualizacion();
         o_motInferencia = new c_motorInferencia();
         mostrarReglas=o_modActualizacion.m_mostrarBaseConocimiento();
+        a_txtaReglas.setText(mostrarReglas);
         setIconImage(new ImageIcon(getClass().getResource("../imagenes/img_icono.png")).getImage());// Nos permite modificar el icono de la ventana.
-        initComponents();        
+        setLocationRelativeTo(null);                                            // Centra la ventana
         setVisible(true);
     }
 
@@ -31,11 +33,11 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        a_btnAgregar = new javax.swing.JButton();
+        a_btnEliminar = new javax.swing.JButton();
+        a_btnModificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        a_txtaReglas = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -45,7 +47,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         a_btnSintoma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema Experto para la detección de trastornos de ansiedad");
+        setTitle("Sistema Experto para la Detección de Trastornos de Ansiedad");
 
         pnl_Interfaz.setForeground(new java.awt.Color(102, 153, 255));
 
@@ -58,18 +60,33 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Reglas");
 
-        jButton1.setText("Agregar");
+        a_btnAgregar.setText("Agregar");
+        a_btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_btnAgregarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Eliminar");
+        a_btnEliminar.setText("Eliminar");
+        a_btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_btnEliminarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Modificar");
+        a_btnModificar.setText("Modificar");
+        a_btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_btnModificarActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText(mostrarReglas);
-        jScrollPane1.setViewportView(jTextArea1);
+        a_txtaReglas.setEditable(false);
+        a_txtaReglas.setColumns(20);
+        a_txtaReglas.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        a_txtaReglas.setRows(5);
+        a_txtaReglas.setText(mostrarReglas);
+        jScrollPane1.setViewportView(a_txtaReglas);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Justificación:");
@@ -95,7 +112,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
 
-        a_btnSintoma.setText("Agregar Síntoma");
+        a_btnSintoma.setText("Diagnosticar");
         a_btnSintoma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 a_btnSintomaActionPerformed(evt);
@@ -113,11 +130,11 @@ public class c_interfazUsuario extends javax.swing.JFrame {
                         .addGroup(pnl_InterfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnl_InterfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(pnl_InterfazLayout.createSequentialGroup()
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(a_btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(a_btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(a_btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -158,9 +175,9 @@ public class c_interfazUsuario extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
                 .addGroup(pnl_InterfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
+                    .addComponent(a_btnAgregar)
+                    .addComponent(a_btnModificar)
+                    .addComponent(a_btnEliminar)
                     .addComponent(a_btnSintoma))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
@@ -205,12 +222,34 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         m_llenaTabla();
     }//GEN-LAST:event_a_btnSintomaActionPerformed
 
+    private void a_btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_btnAgregarActionPerformed
+        o_modActualizacion.m_insertarBaseConocimiento();
+        mostrarReglas=o_modActualizacion.m_mostrarBaseConocimiento();
+        a_txtaReglas.setText("");
+        a_txtaReglas.setText(mostrarReglas);
+    }//GEN-LAST:event_a_btnAgregarActionPerformed
+
+    private void a_btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_btnEliminarActionPerformed
+        o_modActualizacion.m_eliminarBaseConocimiento();
+        mostrarReglas=o_modActualizacion.m_mostrarBaseConocimiento();
+        a_txtaReglas.setText("");
+        a_txtaReglas.setText(mostrarReglas);
+    }//GEN-LAST:event_a_btnEliminarActionPerformed
+
+    private void a_btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_btnModificarActionPerformed
+        o_modActualizacion.m_modificaBaseConocimiento();
+        mostrarReglas=o_modActualizacion.m_mostrarBaseConocimiento();
+        a_txtaReglas.setText("");
+        a_txtaReglas.setText(mostrarReglas);
+    }//GEN-LAST:event_a_btnModificarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton a_btnAgregar;
+    private javax.swing.JButton a_btnEliminar;
+    private javax.swing.JButton a_btnModificar;
     private javax.swing.JButton a_btnSintoma;
     private javax.swing.JTable a_tblEstrategia;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTextArea a_txtaReglas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -219,7 +258,6 @@ public class c_interfazUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JPanel pnl_Interfaz;
     // End of variables declaration//GEN-END:variables

@@ -105,7 +105,7 @@ public class c_baseHechos {
                     v_baseHechos.writeChar(a_carHecho);
                     v_baseHechos.writeInt(a_valHecho);
                     
-                    v_Opcion=JOptionPane.showInputDialog("\n¿Desea agregar otra hecho?\n[Si]=1\n[No]=Cualquier tecla\nOpción: ");
+                    v_Opcion=JOptionPane.showInputDialog("\n¿Desea agregar otro síntoma?\n[Si]=1\n[No]=Cualquier tecla\nOpción: ");
                 }catch(Exception e){
                     System.out.println("m_ingresaBaseHechos: Valor no Valido");
                     System.out.println(e.toString());

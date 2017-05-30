@@ -20,7 +20,6 @@ public class c_motorInferencia {
     
     private ArrayList a_baseHechos;                     // Arreglo de la base de hechos
     private ArrayList a_baseConocimiento;               // Arreglo de la base de conocimiento
-    private ArrayList a_Metas;                          // Arreglo con las metas del sistema experto
     private ArrayList a_conjuntoConflicto;              // Arreglo del conjunto conflicto
     private ArrayList a_Resolver;                       // Arreglo con la regla a resolver    
     private int a_noReglaDescartar;                     // Numero de regla a descartar
@@ -58,11 +57,12 @@ public class c_motorInferencia {
         o_baseHechos.m_ingresaBaseHechos();                                     // Ingresa los hechos iniciales
         a_baseHechos = o_baseHechos.m_cargaBaseHechos();                        // Carga la base de hechos
         a_baseConocimiento = o_baseConocimiento.m_cargarBaseConocimiento();     // Carga la base de conocimiento
-        a_Metas=m_cargaMetas();                                                 // Carga las metas del sistema experto
-        if(a_baseHechos.size()>0&&a_baseConocimiento.size()>0&&a_Metas.size()>0){       
+        if(a_baseHechos.size()>0&&a_baseConocimiento.size()>0){       
             a_conjuntoConflicto = new ArrayList();
             a_conjuntoConflicto.add(a_baseConocimiento.get(0));                 // Extraer cualquier regla de la base de conocimieto
-            while(!m_contenidaMeta()&&a_conjuntoConflicto.size()>0){            // Mientras la meta no este en la BH y el CC no este vacio
+            a_Resolver=(ArrayList)a_baseConocimiento.get(0);
+            a_NuevoHecho=(char)a_Resolver.get(a_Resolver.size()-1);
+            while(!m_contenidaMeta(a_NuevoHecho)&&a_conjuntoConflicto.size()>0){            // Mientras la meta no este en la BH y el CC no este vacio
                 a_banderaNuevoHecho = false;
                 v_BanderaCC=true;
                 a_conjuntoConflicto = m_Equiparar();                            // Equipara antecedentes de la BC con la BH
@@ -90,7 +90,7 @@ public class c_motorInferencia {
                     }
                 }
             }
-            if(m_contenidaMeta()){
+            if(m_contenidaMeta(a_NuevoHecho)){
                 System.out.println("\nÉxito");
                 System.out.println("Diagnosico: "+a_NuevoHecho);
             }else{
@@ -100,66 +100,43 @@ public class c_motorInferencia {
     }
     
     /**
-     * @name: m_cargaMetas
-     * @description: Método para cargar las metas del sistema experto
-     */
-    private ArrayList m_cargaMetas(){
-        ArrayList v_arrayMetas = null;
-        char v_Meta;
-        v_arrayMetas = new ArrayList();
-        RandomAccessFile v_arcMetas = null;
-        long v_apActual=0,v_apFinal;
-        try{
-            v_arcMetas = new RandomAccessFile(a_arcMetas,"r");
-        }catch(Exception e){
-            System.out.println("m_cargaMetas: Error al abrir el archivo: "+a_arcMetas);
-            System.out.println(e.toString());
-        }
-        if(v_arcMetas!=null){
-            try{
-                v_apActual=v_arcMetas.getFilePointer();
-                v_apFinal=v_arcMetas.length();
-                while(v_apActual!=v_apFinal){
-                    v_Meta=v_arcMetas.readChar();
-                    v_arrayMetas.add(v_Meta);
-                    v_apActual=v_arcMetas.getFilePointer();
-                    v_apFinal=v_arcMetas.length();
-                }
-            }catch(Exception e){
-                System.out.println("m_cargaMetas: Error al leer el archivo: "+a_arcMetas);
-                System.out.println(e.toString());
-            }
-            try{
-                v_arcMetas.close();
-            }catch(Exception e){
-                System.out.println("m_cargaMetas: El archivo no se ha cerrado: "+a_arcMetas);
-                System.out.println(e.toString());
-            }
-        }
-        return v_arrayMetas;
-    }// Fin del método m_cargaMetas
-    
-    /**
      * @name: m_contenidaMeta()
      * @description: Método para detectar si la meta se encuentra en la base de hechos
      * @return booleano
      */
-    private boolean m_contenidaMeta(){
+    private boolean m_contenidaMeta(char p_Meta){
         boolean v_Bandera=false;
         ArrayList v_Hecho;
-        char v_Meta1,v_Meta2;
-        for (int i = 0; i < a_Metas.size(); i++) {
-            v_Meta1=(char)a_Metas.get(i);
+        char v_carHecho,v_Meta=p_Meta;
+        if(m_esMeta(v_Meta)){
             for (int j = 0; j < a_baseHechos.size(); j++) {
                 v_Hecho=(ArrayList)a_baseHechos.get(j);
-                v_Meta2=(char)v_Hecho.get(0);
-                if(v_Meta1==v_Meta2){
+                v_carHecho=(char)v_Hecho.get(0);
+                if(v_Meta==v_carHecho){
                     v_Bandera=true;
                 }
             }
         }
         return v_Bandera;
     }// Fin del método m_contenidaMeta
+    
+    private boolean m_esMeta(char p_Meta){
+        boolean v_Bandera=true;
+        ArrayList v_Regla;
+        int v_noAntecedentes;
+        char v_Antecedente,v_Meta=p_Meta;
+        for (int i = 0; i < a_baseConocimiento.size(); i++) {
+            v_Regla=(ArrayList)a_baseConocimiento.get(i);
+            v_noAntecedentes = (int)v_Regla.get(1);
+            for (int j = 0; j < v_noAntecedentes; j++) {
+                v_Antecedente = (char) v_Regla.get(2+j);
+                if(v_Antecedente==v_Meta){
+                    v_Bandera=false;
+                }
+            }
+        }
+        return v_Bandera;
+    }
     
     private ArrayList m_Equiparar(){
         boolean v_Bandera1,v_Bandera2;
