@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 public class c_motorInferencia {
     
+    private c_moduloSintomas o_Sintomas;
     private c_baseHechos o_baseHechos;                  // Objeto de la clase de la base de hechos
     private c_baseConocimiento o_baseConocimiento;      // Objeto de la clase de la base de conocimiento
     
@@ -42,6 +43,7 @@ public class c_motorInferencia {
      * @description: Constructor de la clase c_motorInferencia
      */
     public c_motorInferencia(){ 
+        o_Sintomas = new c_moduloSintomas();
         o_baseHechos = new c_baseHechos();              // Instancia de la base de hechos
         o_baseConocimiento = new c_baseConocimiento();  // Instancia de la base de conocimiento
     }// Fin del constructor de la clase c_motorInferencia
@@ -212,7 +214,7 @@ public class c_motorInferencia {
         try{
             v_Opcion="1";
             a_Entrada = new Scanner(System.in);
-            v_Opcion=JOptionPane.showInputDialog("\nTiene : "+p_Hecho+"\n[Si]=1\n[No]=Cualquier tecla\nOpción: ");
+            v_Opcion=JOptionPane.showInputDialog("\nTiene : "+o_Sintomas.m_BuscaSintoma(p_Hecho)+"\n[Si]=1\n[No]=Cualquier tecla\nOpción: ");
             if(v_Opcion.equals("1")){
                 v_Bandera=true;
             }else{
