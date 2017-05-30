@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 public class c_interfazUsuario extends javax.swing.JFrame {
+    private c_moduloJustificacion o_modJustificacion;
     private c_moduloSintomas o_modSintomas;
     private c_moduloActualizacion o_modActualizacion;
     private c_motorInferencia o_motInferencia;
@@ -13,6 +14,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
     
     public c_interfazUsuario() {
         initComponents();        
+        o_modJustificacion = new c_moduloJustificacion();
         o_modSintomas = new c_moduloSintomas();
         o_modActualizacion = new c_moduloActualizacion();
         o_motInferencia = new c_motorInferencia();
@@ -48,6 +50,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         a_scrlJustificacion = new javax.swing.JScrollPane();
         a_txtaJustificacion = new javax.swing.JTextArea();
         a_btnSintoma = new javax.swing.JButton();
+        a_lblDiagnostico = new javax.swing.JLabel();
         a_menuBar = new javax.swing.JMenuBar();
         a_menuSintoma = new javax.swing.JMenu();
         a_menuItemSintAgregar = new javax.swing.JMenuItem();
@@ -130,6 +133,8 @@ public class c_interfazUsuario extends javax.swing.JFrame {
             }
         });
 
+        a_lblDiagnostico.setText("Diagnóstico:");
+
         javax.swing.GroupLayout pnl_InterfazLayout = new javax.swing.GroupLayout(pnl_Interfaz);
         pnl_Interfaz.setLayout(pnl_InterfazLayout);
         pnl_InterfazLayout.setHorizontalGroup(
@@ -154,7 +159,10 @@ public class c_interfazUsuario extends javax.swing.JFrame {
                             .addGroup(pnl_InterfazLayout.createSequentialGroup()
                                 .addComponent(a_lblProceso)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(a_btnSintoma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_InterfazLayout.createSequentialGroup()
+                                .addComponent(a_lblDiagnostico)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(a_btnSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(a_scrlJustificacion)
                     .addGroup(pnl_InterfazLayout.createSequentialGroup()
                         .addGroup(pnl_InterfazLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +197,8 @@ public class c_interfazUsuario extends javax.swing.JFrame {
                     .addComponent(a_btnAgregar)
                     .addComponent(a_btnModificar)
                     .addComponent(a_btnEliminar)
-                    .addComponent(a_btnSintoma))
+                    .addComponent(a_btnSintoma)
+                    .addComponent(a_lblDiagnostico))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(a_lblJustificacion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -216,6 +225,11 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         a_menuSintoma.add(a_menuItemSintMostrar);
 
         a_menuItemSintEliminar.setText("Eliminar Sintoma");
+        a_menuItemSintEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_menuItemSintEliminarActionPerformed(evt);
+            }
+        });
         a_menuSintoma.add(a_menuItemSintEliminar);
 
         a_menuBar.add(a_menuSintoma);
@@ -223,9 +237,19 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         a_menuTratamiento.setText("Tratamientos");
 
         a_menuItemTratAgregar.setText("Agregar Tratamiento");
+        a_menuItemTratAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_menuItemTratAgregarActionPerformed(evt);
+            }
+        });
         a_menuTratamiento.add(a_menuItemTratAgregar);
 
         a_menuItemTratEliminar.setText("Eliminar Tratamiento");
+        a_menuItemTratEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_menuItemTratEliminarActionPerformed(evt);
+            }
+        });
         a_menuTratamiento.add(a_menuItemTratEliminar);
 
         a_menuBar.add(a_menuTratamiento);
@@ -264,7 +288,9 @@ public class c_interfazUsuario extends javax.swing.JFrame {
     }
     
     private void a_btnSintomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_btnSintomaActionPerformed
-        o_motInferencia.m_encadenamientoAdelante();
+        char v_Diagnostico = o_motInferencia.m_encadenamientoAdelante();
+        a_lblDiagnostico.setText("Diagnóstico: "+o_modSintomas.m_BuscaSintoma(v_Diagnostico));
+        a_txtaJustificacion.setText(o_modJustificacion.m_BuscaTratamiento(v_Diagnostico));
         m_llenaTabla();
     }//GEN-LAST:event_a_btnSintomaActionPerformed
 
@@ -297,11 +323,24 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         o_modSintomas.m_MostrarSintomas();
     }//GEN-LAST:event_a_menuItemSintMostrarActionPerformed
 
+    private void a_menuItemSintEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_menuItemSintEliminarActionPerformed
+        
+    }//GEN-LAST:event_a_menuItemSintEliminarActionPerformed
+
+    private void a_menuItemTratAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_menuItemTratAgregarActionPerformed
+        o_intTratamiento = new c_interfazTratamiento();
+    }//GEN-LAST:event_a_menuItemTratAgregarActionPerformed
+
+    private void a_menuItemTratEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_menuItemTratEliminarActionPerformed
+        
+    }//GEN-LAST:event_a_menuItemTratEliminarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton a_btnAgregar;
     private javax.swing.JButton a_btnEliminar;
     private javax.swing.JButton a_btnModificar;
     private javax.swing.JButton a_btnSintoma;
+    private javax.swing.JLabel a_lblDiagnostico;
     private javax.swing.JLabel a_lblIcono;
     private javax.swing.JLabel a_lblJustificacion;
     private javax.swing.JLabel a_lblProceso;

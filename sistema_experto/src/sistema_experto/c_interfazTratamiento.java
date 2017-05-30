@@ -4,7 +4,10 @@ import javax.swing.ImageIcon;
 
 public class c_interfazTratamiento extends javax.swing.JFrame {
 
+    private c_moduloJustificacion o_modJustificacion;
+    
     public c_interfazTratamiento() {
+        o_modJustificacion = new c_moduloJustificacion();
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("../imagenes/img_icono.png")).getImage());// Nos permite modificar el icono de la ventana.
         setLocationRelativeTo(null);   
@@ -34,6 +37,11 @@ public class c_interfazTratamiento extends javax.swing.JFrame {
         jLabel1.setText("Tratamiento:");
 
         a_btnGuardar.setText("Guardar");
+        a_btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                a_btnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,6 +85,13 @@ public class c_interfazTratamiento extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void a_btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_btnGuardarActionPerformed
+        char v_caraTratamiento = a_txtfCaracter.getText().charAt(0);
+        String v_descTratamiento = a_txtaTratamiento.getText();
+        o_modJustificacion.m_AgregarTratemiento(v_caraTratamiento,v_descTratamiento);
+        setVisible(false);
+    }//GEN-LAST:event_a_btnGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton a_btnGuardar;

@@ -29,6 +29,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar Sintoma"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a_menuItemSintEliminarActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -41,11 +44,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar Tratamiento"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a_menuItemTratAgregarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="a_menuItemTratEliminar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar Tratamiento"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a_menuItemTratEliminarActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -120,7 +129,11 @@
                                   <Component id="a_lblProceso" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="a_btnSintoma" alignment="1" min="-2" pref="167" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="a_lblDiagnostico" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="a_btnSintoma" min="-2" pref="167" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Component id="a_scrlJustificacion" max="32767" attributes="0"/>
@@ -169,6 +182,7 @@
                       <Component id="a_btnModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="a_btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="a_btnSintoma" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="a_lblDiagnostico" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="a_lblJustificacion" min="-2" max="-2" attributes="0"/>
@@ -313,6 +327,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a_btnSintomaActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="a_lblDiagnostico">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Diagn&#xf3;stico:"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -52,7 +52,7 @@ public class c_motorInferencia {
      * @name: m_encAdelante
      * @description: Método de encadenamiento adelante
      */
-    public void m_encadenamientoAdelante(){
+    public char m_encadenamientoAdelante(){
         a_Estrategia = new ArrayList();
         int v_contador=0;
         boolean v_BanderaCC=true;
@@ -75,7 +75,11 @@ public class c_motorInferencia {
                             a_Resolver=(ArrayList)a_conjuntoConflicto.get(v_contador);
                             m_aplicarRegla();
                             if(a_banderaNuevoHecho){
-                                m_actualizaBaseHechos(m_Consulta(a_NuevoHecho));
+                                if(m_esMeta(a_NuevoHecho)){
+                                    m_actualizaBaseHechos(m_esMeta(a_NuevoHecho));
+                                }else{
+                                    m_actualizaBaseHechos(m_Consulta(a_NuevoHecho));
+                                }
                                 String a_Ciclo [];
                                 a_Ciclo = m_Ciclo();
                                 a_Estrategia.add(a_Ciclo);
@@ -93,12 +97,13 @@ public class c_motorInferencia {
                 }
             }
             if(m_contenidaMeta(a_NuevoHecho)){
-                System.out.println("\nÉxito");
-                System.out.println("Diagnosico: "+a_NuevoHecho);
+                JOptionPane.showMessageDialog(null,"Diagnosico: "+a_NuevoHecho,"Diagnostico Encontrado",JOptionPane.INFORMATION_MESSAGE);;
             }else{
+                JOptionPane.showMessageDialog(null,"Diagnosico: "+a_NuevoHecho,"Diagnostico Incompleto",JOptionPane.ERROR_MESSAGE);;
                 System.out.println("\nFracaso");
             }
         }
+        return a_NuevoHecho;
     }
     
     /**

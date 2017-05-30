@@ -98,7 +98,7 @@ public class c_baseHechos {
                 try{
                     v_Opcion="1";
                     a_Entrada = new Scanner(System.in);
-                    a_carHecho=JOptionPane.showInputDialog("Sintoma: ").charAt(0);
+                    a_carHecho=JOptionPane.showInputDialog("Síntoma: ").charAt(0);
                     a_valHecho=1;
                     
                     v_baseHechos.seek(v_baseHechos.length());

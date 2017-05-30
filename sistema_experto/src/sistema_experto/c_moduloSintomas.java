@@ -9,16 +9,9 @@ import javax.swing.JOptionPane;
 
 public class c_moduloSintomas {
     
-    private FileOutputStream a_archOutputSintomas = null;
-    private FileInputStream a_archInputSintomas = null;
-    private c_sintoma o_sintoma;
     private ArrayList a_Sintomas;
     private char a_caraSintoma;
-    private String a_Sintoma;
-
-    public c_moduloSintomas() {
-        
-    }
+    private String a_descSintoma;
     
     public void m_AgregarSintoma(){
         String v_Opcion="";
@@ -47,9 +40,9 @@ public class c_moduloSintomas {
                     v_Opcion="1";
                     v_Sintoma = new ArrayList();
                     a_caraSintoma = JOptionPane.showInputDialog("Caracter: ").charAt(0);
-                    a_Sintoma = JOptionPane.showInputDialog("Sintoma: ");
+                    a_descSintoma = JOptionPane.showInputDialog("Sintoma: ");
                     v_Sintoma.add(a_caraSintoma);
-                    v_Sintoma.add(a_Sintoma);
+                    v_Sintoma.add(a_descSintoma);
                     a_Sintomas.add(v_Sintoma);
                     v_Opcion=JOptionPane.showInputDialog("¿Desea agregar otra regla?\n[Si]=1\n[No]=Cualquier tecla\nOpcion: ");
                 }catch(Exception e){
