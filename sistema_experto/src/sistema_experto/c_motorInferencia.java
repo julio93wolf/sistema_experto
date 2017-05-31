@@ -100,7 +100,6 @@ public class c_motorInferencia {
                 JOptionPane.showMessageDialog(null,"Diagnosico: "+o_Sintomas.m_BuscaSintoma(a_NuevoHecho),"Diagnostico Encontrado",JOptionPane.INFORMATION_MESSAGE);;
             }else{
                 JOptionPane.showMessageDialog(null,"Diagnosico: "+o_Sintomas.m_BuscaSintoma(a_NuevoHecho),"Diagnostico Incompleto",JOptionPane.ERROR_MESSAGE);;
-                System.out.println("\nFracaso");
             }
         }
         return a_NuevoHecho;
