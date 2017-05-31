@@ -97,9 +97,9 @@ public class c_motorInferencia {
                 }
             }
             if(m_contenidaMeta(a_NuevoHecho)){
-                JOptionPane.showMessageDialog(null,"Diagnosico: "+a_NuevoHecho,"Diagnostico Encontrado",JOptionPane.INFORMATION_MESSAGE);;
+                JOptionPane.showMessageDialog(null,"Diagnosico: "+o_Sintomas.m_BuscaSintoma(a_NuevoHecho),"Diagnostico Encontrado",JOptionPane.INFORMATION_MESSAGE);;
             }else{
-                JOptionPane.showMessageDialog(null,"Diagnosico: "+a_NuevoHecho,"Diagnostico Incompleto",JOptionPane.ERROR_MESSAGE);;
+                JOptionPane.showMessageDialog(null,"Diagnosico: "+o_Sintomas.m_BuscaSintoma(a_NuevoHecho),"Diagnostico Incompleto",JOptionPane.ERROR_MESSAGE);;
                 System.out.println("\nFracaso");
             }
         }
