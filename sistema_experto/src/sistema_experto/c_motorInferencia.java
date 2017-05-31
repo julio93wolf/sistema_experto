@@ -37,7 +37,7 @@ public class c_motorInferencia {
     
     // Dirección de la base de hechos
     final private String a_arcBaseHechos="src/files/bh.dat";
-    
+    String hechos;
     /**
      * @name: c_motorInferencia
      * @description: Constructor de la clase c_motorInferencia
@@ -97,9 +97,10 @@ public class c_motorInferencia {
                 }
             }
             if(m_contenidaMeta(a_NuevoHecho)){
-                JOptionPane.showMessageDialog(null,"Diagnosico: "+o_Sintomas.m_BuscaSintoma(a_NuevoHecho),"Diagnostico Encontrado",JOptionPane.INFORMATION_MESSAGE);;
+                JOptionPane.showMessageDialog(null,"Diagnostico: "+o_Sintomas.m_BuscaSintoma(a_NuevoHecho),"Diagnostico Encontrado",JOptionPane.INFORMATION_MESSAGE);;
             }else{
-                JOptionPane.showMessageDialog(null,"Diagnosico: "+o_Sintomas.m_BuscaSintoma(a_NuevoHecho),"Diagnostico Incompleto",JOptionPane.ERROR_MESSAGE);;
+                hechos=o_baseHechos.m_mostrarBaseHechos();
+                JOptionPane.showMessageDialog(null,"Diagnostico: \nSe necesitan realizar más estudios para determinar su transtorno pero por el momento se conoce que usted padece\n"+hechos,"Diagnostico Incompleto",JOptionPane.ERROR_MESSAGE);;
             }
         }
         return a_NuevoHecho;

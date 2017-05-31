@@ -16,7 +16,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class c_baseHechos {
-    
+    private c_moduloSintomas o_Sintomas = new c_moduloSintomas();
     private char a_carHecho;            // Carácter que representa al hecho
     private int a_valHecho;             // Valor del hecho
     
@@ -24,7 +24,7 @@ public class c_baseHechos {
     private ArrayList a_baseHechos;     // Arreglo con los datos de la base de hechos
     
     private Scanner a_Entrada;          // Captura por teclado
-    
+    String a_mosHechos;                 //Captura los hechos almacenados en la base de hechos.
     // Dirección de la base de hechos
     final private String a_arcBaseHechos="src/files/bh.dat";
     
@@ -124,7 +124,8 @@ public class c_baseHechos {
      * @name: m_mostrarBaseHechos
      * @description: Método para mostrar por pantalla los hechos actuales de la base de hechos
      */
-    public void m_mostrarBaseHechos(){
+    public String m_mostrarBaseHechos(){
+        a_mosHechos="";
         RandomAccessFile v_baseHechos = null;
         long v_apActual=0,v_apFinal;
         try{
@@ -140,7 +141,11 @@ public class c_baseHechos {
                 while(v_apActual!=v_apFinal){
                     a_carHecho=v_baseHechos.readChar();
                     a_valHecho=v_baseHechos.readInt();
-                    System.out.println("{"+a_carHecho+":"+a_valHecho+"}");
+                    if(a_valHecho==1){
+                    
+                    a_mosHechos+=(""+o_Sintomas.m_BuscaSintoma(a_carHecho)+"\n");    
+                    }
+                    
                     v_apActual=v_baseHechos.getFilePointer();
                     v_apFinal=v_baseHechos.length();
                 }
@@ -155,6 +160,7 @@ public class c_baseHechos {
                 System.out.println(e.toString());
             }
         }
+        return a_mosHechos;
     }// Fin del método m_mostrarBaseHechos
     
 }

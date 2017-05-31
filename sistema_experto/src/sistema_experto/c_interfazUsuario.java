@@ -71,7 +71,7 @@ public class c_interfazUsuario extends javax.swing.JFrame {
 
         a_lblIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/img_psicologia.png"))); // NOI18N
 
-        a_lblReglas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        a_lblReglas.setFont(new java.awt.Font("Felix Titling", 0, 14)); // NOI18N
         a_lblReglas.setText("Reglas");
 
         a_btnAgregar.setText("Agregar");
@@ -102,10 +102,10 @@ public class c_interfazUsuario extends javax.swing.JFrame {
         a_txtaReglas.setText(mostrarReglas);
         a_scrlReglas.setViewportView(a_txtaReglas);
 
-        a_lblJustificacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        a_lblJustificacion.setFont(new java.awt.Font("Felix Titling", 0, 14)); // NOI18N
         a_lblJustificacion.setText("Justificación:");
 
-        a_lblProceso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        a_lblProceso.setFont(new java.awt.Font("Felix Titling", 0, 14)); // NOI18N
         a_lblProceso.setText("Proceso");
 
         a_tblEstrategia.setModel(new javax.swing.table.DefaultTableModel(
