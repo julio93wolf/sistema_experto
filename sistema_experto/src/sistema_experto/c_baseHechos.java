@@ -143,7 +143,7 @@ public class c_baseHechos {
                     a_valHecho=v_baseHechos.readInt();
                     if(a_valHecho==1){
                     
-                    a_mosHechos+=(""+o_Sintomas.m_BuscaSintoma(a_carHecho)+"\n");    
+                    a_mosHechos+=(""+a_carHecho+"\n");    
                     }
                     
                     v_apActual=v_baseHechos.getFilePointer();

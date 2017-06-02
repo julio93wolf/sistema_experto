@@ -97,10 +97,10 @@ public class c_motorInferencia {
                 }
             }
             if(m_contenidaMeta(a_NuevoHecho)){
-                JOptionPane.showMessageDialog(null,"Diagnostico: "+o_Sintomas.m_BuscaSintoma(a_NuevoHecho),"Diagnostico Encontrado",JOptionPane.INFORMATION_MESSAGE);;
+                JOptionPane.showMessageDialog(null,"Diagnostico: "+a_NuevoHecho,"Diagnostico Encontrado",JOptionPane.INFORMATION_MESSAGE);;
             }else{
                 hechos=o_baseHechos.m_mostrarBaseHechos();
-                JOptionPane.showMessageDialog(null,"Diagnostico: \nSe necesitan realizar más estudios para determinar su transtorno pero por el momento se conoce que usted padece\n"+hechos,"Diagnostico Incompleto",JOptionPane.ERROR_MESSAGE);;
+                JOptionPane.showMessageDialog(null,"Diagnostico: \nSe necesitan realizar más estudios para determinar su transtorno pero por el momento se conoce que usted padece\n"+hechos.charAt(hechos.length()-2),"Diagnostico Incompleto",JOptionPane.ERROR_MESSAGE);;
             }
         }
         return a_NuevoHecho;
@@ -120,6 +120,8 @@ public class c_motorInferencia {
                 v_Hecho=(ArrayList)a_baseHechos.get(j);
                 v_carHecho=(char)v_Hecho.get(0);
                 if(v_Meta==v_carHecho){
+                    
+                    
                     v_Bandera=true;
                 }
             }
@@ -219,7 +221,7 @@ public class c_motorInferencia {
         try{
             v_Opcion="1";
             a_Entrada = new Scanner(System.in);
-            v_Opcion=JOptionPane.showInputDialog("\nTiene : "+o_Sintomas.m_BuscaSintoma(p_Hecho)+"\n[Si]=1\n[No]=Cualquier tecla\nOpción: ");
+            v_Opcion=JOptionPane.showInputDialog("\nTiene : "+p_Hecho+"\n[Si]=1\n[No]=Cualquier tecla\nOpción: ");
             if(v_Opcion.equals("1")){
                 v_Bandera=true;
             }else{

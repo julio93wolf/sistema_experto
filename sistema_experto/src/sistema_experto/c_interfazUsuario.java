@@ -289,8 +289,8 @@ public class c_interfazUsuario extends javax.swing.JFrame {
     
     private void a_btnSintomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_btnSintomaActionPerformed
         char v_Diagnostico = o_motInferencia.m_encadenamientoAdelante();
-        a_lblDiagnostico.setText("Diagnóstico: "+o_modSintomas.m_BuscaSintoma(v_Diagnostico));
-        a_txtaJustificacion.setText(o_modJustificacion.m_BuscaTratamiento(v_Diagnostico));
+        a_lblDiagnostico.setText("Diagnóstico: "+v_Diagnostico);
+        //a_txtaJustificacion.setText(o_modJustificacion.m_BuscaTratamiento(v_Diagnostico));
         m_llenaTabla();
     }//GEN-LAST:event_a_btnSintomaActionPerformed
 
